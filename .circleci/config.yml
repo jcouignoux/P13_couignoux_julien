@@ -7,6 +7,6 @@ workflows:
       - build
       - heroku/deploy-via-git:
         - build
-        filters:
-        branches:
-          only: main
+          filters:
+          branches:
+            only: main
