@@ -28,7 +28,8 @@ jobs:
           username: jucgx
           password: $DOCKERHUB_PASSWORD
     steps:
-      - docker/install-docker-compose
+      - setup_remote_docker:
+          version: 20.10.14
       - docker/build:
           path: ./ 
           image: oc-lettings-site:latest
