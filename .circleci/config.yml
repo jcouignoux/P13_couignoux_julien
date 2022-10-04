@@ -28,6 +28,11 @@ jobs:
           username: jucgx
           password: $DOCKERHUB_PASSWORD
     steps:
+      - docker/install-docker-compose
+      - docker/build:
+          path: ./ 
+          image: oc-lettings-site:latest
+      - docker/check
       - docker/push:
           image: test
   
