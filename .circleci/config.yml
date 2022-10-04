@@ -23,7 +23,10 @@ jobs:
   cont:
     docker:
       # replace with your preferred image
-      - image: jcgx/oc-lettings-site:stable
+      - image: jcgx/oc-lettings-site:latest
+        auth:
+          username: jcgx
+          password: $DOCKERHUB_PASSWORD
     steps:
       - docker/push:
           image: test
