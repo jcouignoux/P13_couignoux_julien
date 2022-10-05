@@ -23,19 +23,13 @@ jobs:
   cont:
     docker:
       # replace with your preferred image
-      - image: jucgx/oc-lettings-site:latest
-        auth:
-          username: jucgx
-          password: $DOCKERHUB_PASSWORD
+      - image: alpine:latest
     steps:
-      - setup_remote_docker:
-          version: 20.10.14
-      - docker/build:
-          path: ./ 
-          image: oc-lettings-site:latest
-      - docker/check
-      - docker/push:
-          image: test
+      - run: |
+          TAG=$CIRCLE_BUILD_NUM
+          docker build -t jucgx/oc-lettings-site:$TAG .
+          echo $DOCKERHUB_PASSWORD | docker login -u $DOCKER_USER --password-stdin
+          docker push jucgx/oc-lettings-site:$TAG
   
   deploy: # this can be any name you choose
     executor: python/default
