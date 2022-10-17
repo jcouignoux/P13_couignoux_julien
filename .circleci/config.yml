@@ -25,7 +25,7 @@ jobs:
       - image: cimg/go:1.17
         auth:
           username: jucgx
-          password: $DOCKERHUB_PASSWORD
+          password: $CIRCLE_SHA1
     steps:
       - checkout
       - attach_workspace:
