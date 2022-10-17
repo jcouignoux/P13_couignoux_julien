@@ -9,7 +9,7 @@ jobs:
   build_and_test:
     executor: python/default
     steps:
-      # - checkout
+      - checkout
       - python/install-packages:
           pkg-manager: pip
       - run:
@@ -28,9 +28,9 @@ jobs:
           username: jucgx
           password: $DOCKERHUB_PASSWORD
     steps:
+      - checkout
       - attach_workspace:
           at: ~/project
-      # - checkout
       # - setup_remote_docker:
       #     version: 20.10.14
       #     docker_layer_caching: true
