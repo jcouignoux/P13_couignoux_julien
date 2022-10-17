@@ -6,7 +6,7 @@ orbs:
   docker: circleci/docker@2.1.4
 
 jobs:
-  build_and_test: # this can be any name you choose
+  build_and_test:
     executor: python/default
     steps:
       - checkout
@@ -23,22 +23,24 @@ jobs:
   cont:
     docker:
       # replace with your preferred image
-      - image: cimg/go:1.17
+      - image: python/default
         auth:
           username: jucgx
           password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.14
-          docker_layer_caching: true
+      - attach_workspace:
+          at: ~/project
+      # - setup_remote_docker:
+      #     version: 20.10.14
+      #     docker_layer_caching: true
       - run: |
           TAG=$CIRCLE_BUILD_NUM
           docker build -t jucgx/oc-lettings-site:$TAG .
           echo $DOCKERHUB_PASSWORD | docker login -u $DOCKER_USER --password-stdin
           docker push jucgx/oc-lettings-site:$TAG
   
-  deploy: # this can be any name you choose
+  deploy:
     executor: python/default
     steps:
       - attach_workspace:

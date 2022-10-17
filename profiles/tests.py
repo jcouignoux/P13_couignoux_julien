@@ -26,7 +26,7 @@ class TestProfilesUrls(TestCase):
     def test_letting_url(self):
         client = Client()
         user = User.objects.create(username='username',)
-        profile = Profile.objects.create(user=user, favorite_city='Sannois')
+        Profile.objects.create(user=user, favorite_city='Sannois')
         url = reverse('profiles:profile', kwargs={'username': user.username})
         response = client.get(url)
         self.assertEqual(response.status_code, HTTPStatus.OK)
