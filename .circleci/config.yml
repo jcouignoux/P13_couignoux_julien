@@ -22,7 +22,7 @@ jobs:
 
   cont:
     docker:
-      - image: jucgx/oc-lettings-site:latest
+      - image: cimg/go:1.17
         auth:
           username: jucgx
           password: $DOCKERHUB_PASSWORD
