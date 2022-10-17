@@ -22,8 +22,7 @@ jobs:
 
   cont:
     docker:
-      # replace with your preferred image
-      - image: python/default
+      - image: jucgx/oc-lettings-site:latest
         auth:
           username: jucgx
           password: $DOCKERHUB_PASSWORD
@@ -46,7 +45,7 @@ jobs:
       - attach_workspace:
           at: ~/project
       - heroku/deploy-via-git:
-          force: true # force push when pushing to the heroku remote, see: https://devcenter.heroku.com/articles/git
+          force: true
 
 
 workflows:
