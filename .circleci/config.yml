@@ -25,7 +25,7 @@ jobs:
       - image: cimg/go:1.17
         auth:
           username: jucgx
-          password: $CIRCLE_SHA1
+          password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - attach_workspace:
@@ -34,7 +34,7 @@ jobs:
           version: 20.10.14
           docker_layer_caching: true
       - run: |
-          TAG=$CIRCLE_BUILD_NUM
+          TAG=$CIRCLE_SHA1
           docker build -t jucgx/oc-lettings-site:$TAG .
           echo $DOCKERHUB_PASSWORD | docker login -u $DOCKER_USER --password-stdin
           docker push jucgx/oc-lettings-site:$TAG
