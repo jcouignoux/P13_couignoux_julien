@@ -38,6 +38,7 @@ jobs:
           docker build -t jucgx/oc-lettings-site:$TAG .
           echo $DOCKERHUB_PASSWORD | docker login -u $DOCKER_USER --password-stdin
           docker push jucgx/oc-lettings-site:$TAG
+          docker push jucgx/oc-lettings-site:latest
   
   deploy:
     executor: python/default
