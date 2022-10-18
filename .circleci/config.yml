@@ -60,7 +60,7 @@ jobs:
            sentry-cli releases set-commits 2.7.0 --auto --auth-token d6dc207329534e3495b40c81fc5ccee062c2638988d04df49faef2fab7e0ee1a -p oc_letting_site --org cgx
            sentry-cli releases files 2.7.0 upload-sourcemaps path-to-sourcemaps-if-applicable --auth-token d6dc207329534e3495b40c81fc5ccee062c2638988d04df49faef2fab7e0ee1a -p oc_letting_site --org cgx
            sentry-cli releases finalize 2.7.0 --auth-token d6dc207329534e3495b40c81fc5ccee062c2638988d04df49faef2fab7e0ee1a -p oc_letting_site --org cgx
-           sentry-cli releases deploys 2.7.0 new -e $SENTRY_ENVIRONMENT
+           sentry-cli releases deploys 2.7.0 new -e $SENTRY_ENVIRONMENT --auth-token d6dc207329534e3495b40c81fc5ccee062c2638988d04df49faef2fab7e0ee1a -p oc_letting_site --org cgx
   
 
 workflows:
