@@ -36,6 +36,7 @@ jobs:
       - run: |
           TAG=$CIRCLE_SHA1
           docker build -t jucgx/oc-lettings-site:$TAG .
+          docker build -t jucgx/oc-lettings-site:latest .
           echo $DOCKERHUB_PASSWORD | docker login -u $DOCKER_USER --password-stdin
           docker push jucgx/oc-lettings-site:$TAG
           docker push jucgx/oc-lettings-site:latest
