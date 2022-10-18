@@ -2,9 +2,10 @@ version: '3'
 
 services:
   web:
-    build: .
-    command: ./entrypoint.sh
-    volumes:
-      - .:/code
+    image: jucgx/oc-lettings-site:latest
+    command: python manage.py runserver 0.0.0.0:8000
+    restart: always
+    # volumes:
+    #   - .:/code
     ports:
       - "8090:8000"
