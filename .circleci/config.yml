@@ -42,7 +42,7 @@ jobs:
           docker push jucgx/oc-lettings-site:latest
   
   deploy:
-      executor: python/default
+      executor: heroku/default
       steps:
           - attach_workspace:
               at: ~/project
@@ -51,7 +51,7 @@ jobs:
  
 
 workflows:
-  test_my_app:
+  oc_lettings_site_pipeline:
     jobs:
       - build_and_test
       - cont:
