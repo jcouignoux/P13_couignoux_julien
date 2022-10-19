@@ -63,8 +63,8 @@ workflows:
       - deploy:
           requires:
             - cont # only deploy if the build_and_test job has completed
-          post-steps:
-            - run: python manage.py loaddata ./oc_lettings/dumps/db.json
+          # post-steps:
+          #   - run: python manage.py loaddata ./oc_lettings/dumps/db.json
           # filters:
           #   branches:
           #     only: main
