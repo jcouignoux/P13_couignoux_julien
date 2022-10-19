@@ -48,6 +48,9 @@ jobs:
         - attach_workspace:
             at: ~/project
         - heroku/deploy-via-git
+        - run:
+            name: Loaddata
+            command: python manage.py loaddata ./oc_lettings/dumps/db.json
  
 
 workflows:
