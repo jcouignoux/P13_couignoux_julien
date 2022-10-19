@@ -47,8 +47,7 @@ jobs:
         - checkout
         - attach_workspace:
             at: ~/project
-        - heroku/deploy-via-git:
-            force: true
+        - heroku/deploy-via-git
  
 
 workflows:
