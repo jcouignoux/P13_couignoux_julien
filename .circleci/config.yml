@@ -42,7 +42,7 @@ jobs:
           docker push jucgx/oc-lettings-site:latest
   
   deploy:
-      executor: python/default
+      executor: heroku/default
       steps:
           - attach_workspace:
               at: ~/project
