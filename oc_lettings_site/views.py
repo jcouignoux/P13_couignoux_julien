@@ -12,4 +12,4 @@ Praesent volutpat porttitor magna, non finibus neque cursus id."""
 
 
 def index(request):
-    return render(request, 'website/index.html')
+    return render(request, 'oc_lettings_site/index.html')

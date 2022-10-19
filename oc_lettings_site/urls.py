@@ -1,15 +1,10 @@
-from django.contrib import admin
-from django.urls import path, include
 
+from django.urls import path
 
-# def trigger_error(request):
-#     division_by_zero = 1 / 0
+from oc_lettings_site import views
 
+app_name = 'website'
 
 urlpatterns = [
-    path('', include(('website.urls', 'website'), namespace='website')),
-    path('lettings/', include(('lettings.urls', 'lettings'), namespace='lettings')),
-    path('profiles/', include(('profiles.urls', 'profiles'), namespace='profiles')),
-    path('admin/', admin.site.urls),
-    # path('sentry-debug/', trigger_error),
+    path('', views.index, name='index'),
 ]
