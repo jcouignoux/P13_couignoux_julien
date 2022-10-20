@@ -45,16 +45,13 @@ jobs:
   
   deploy:
       executor: heroku/default
-      environnment:
-        DJANGO_SETTINGS_MODULE = oc_lettings.settings.prod
+      environment:
+        DJANGO_SETTINGS_MODULE: oc_lettings.settings.prod
       steps:
         - checkout
         - attach_workspace:
             at: ~/project
         - heroku/deploy-via-git
-        - run:
-            name: migrate
-            command: python manage.py migrate
  
 
 workflows:
