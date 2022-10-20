@@ -8,9 +8,12 @@ massa dolor cursus neque, quis dictum lacus d """
 
 
 def profiles_index(request):
-    profiles_list = Profile.objects.all()
-    context = {'profiles_list': profiles_list}
-    return render(request, 'profiles/profiles_index.html', context)
+    try:
+        profiles_list = Profile.objects.all()
+        context = {'profiles_list': profiles_list}
+        return render(request, 'profiles/profiles_index.html', context)
+    except Exception as e:
+        raise Exception(e)
 
 
 """ Aliquam sed metus eget nisi tincidunt ornare accumsan eget lac laoreet neque quis,
@@ -20,6 +23,9 @@ Pellentesque habitant morbi tristique senectus et netus et males """
 
 
 def profile(request, username):
-    profile = Profile.objects.get(user__username=username)
-    context = {'profile': profile}
-    return render(request, 'profiles/profile.html', context)
+    try:
+        profile = Profile.objects.get(user__username=username)
+        context = {'profile': profile}
+        return render(request, 'profiles/profile.html', context)
+    except Exception as e:
+        raise Exception(e)

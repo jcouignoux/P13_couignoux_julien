@@ -9,9 +9,12 @@ Cras eget scelerisque """
 
 
 def lettings_index(request):
-    lettings_list = Letting.objects.all()
-    context = {'lettings_list': lettings_list}
-    return render(request, 'lettings/lettings_index.html', context)
+    try:
+        lettings_list = Letting.objects.all()
+        context = {'lettings_list': lettings_list}
+        return render(request, 'lettings/lettings_index.html', context)
+    except Exception as e:
+        raise Exception(e)
 
 
 """ Cras ultricies dignissim purus, vitae hendrerit ex varius non.
@@ -28,9 +31,12 @@ Integer vehicula tincidunt enim, ac lacinia augue pulvinar sit amet. """
 
 
 def letting(request, letting_id):
-    letting = Letting.objects.get(id=letting_id)
-    context = {
-        'title': letting.title,
-        'address': letting.address,
-    }
-    return render(request, 'lettings/letting.html', context)
+    try:
+        letting = Letting.objects.get(id=letting_id)
+        context = {
+            'title': letting.title,
+            'address': letting.address,
+        }
+        return render(request, 'lettings/letting.html', context)
+    except Exception as e:
+        raise Exception(e)
