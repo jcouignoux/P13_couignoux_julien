@@ -12,4 +12,7 @@ Praesent volutpat porttitor magna, non finibus neque cursus id."""
 
 
 def index(request):
-    return render(request, 'oc_lettings_site/index.html')
+    try:
+        return render(request, 'oc_lettings_site/index.html')
+    except Exception as e:
+        raise Exception(e)
