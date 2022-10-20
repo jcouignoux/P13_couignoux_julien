@@ -1,6 +1,5 @@
 FROM python:3
 
-
 # ENV PYTHONDONTWRITEBYTECODE=1
 # ENV PYTHONUNBUFFERED=1
 # ENV VIRTUAL_ENV=/opt/venv
@@ -13,10 +12,10 @@ FROM python:3
 # RUN pip install -r requirements.txt
 # EXPOSE 8000
 # ENTRYPOINT ["python", "manage.py", "runserver"]
-
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 WORKDIR /code
+COPY entrypoint.sh /code/
 COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 COPY . /code/

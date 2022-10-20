@@ -1,9 +1,9 @@
 version: 2.1
 
 orbs:
-  python: circleci/python@2.0.3
-  heroku: circleci/heroku@0.0.10
-  docker: circleci/docker@2.1.4
+  python: circleci/python@2.1.1
+  heroku: circleci/heroku@2.0.0
+  # docker: circleci/docker@2.1.4
 
 jobs:
   build_and_test:
@@ -22,8 +22,7 @@ jobs:
 
   cont:
     docker:
-      # replace with your preferred image
-      - image: python/default
+      - image: cimg/go:1.17
         auth:
           username: jucgx
           password: $DOCKERHUB_PASSWORD
@@ -31,26 +30,31 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/project
-      # - setup_remote_docker:
-      #     version: 20.10.14
-      #     docker_layer_caching: true
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
       - run: |
-          TAG=$CIRCLE_BUILD_NUM
+          TAG=$CIRCLE_SHA1
           docker build -t jucgx/oc-lettings-site:$TAG .
+          docker build -t jucgx/oc-lettings-site:latest .
           echo $DOCKERHUB_PASSWORD | docker login -u $DOCKER_USER --password-stdin
           docker push jucgx/oc-lettings-site:$TAG
+          docker push jucgx/oc-lettings-site:latest
   
   deploy:
-    executor: python/default
-    steps:
-      - attach_workspace:
-          at: ~/project
-      - heroku/deploy-via-git:
-          force: true # force push when pushing to the heroku remote, see: https://devcenter.heroku.com/articles/git
-
+      executor: heroku/default
+      steps:
+        - checkout
+        - attach_workspace:
+            at: ~/project
+        - heroku/deploy-via-git
+        # - run:
+        #     name: Loaddata
+        #     command: python manage.py loaddata ./oc_lettings/dumps/db.json
+ 
 
 workflows:
-  test_my_app:
+  oc_lettings_site_pipeline:
     jobs:
       - build_and_test
       - cont:
@@ -62,6 +66,8 @@ workflows:
       - deploy:
           requires:
             - cont # only deploy if the build_and_test job has completed
+          # post-steps:
+          #   - run: python manage.py loaddata ./oc_lettings/dumps/db.json
           # filters:
           #   branches:
           #     only: main

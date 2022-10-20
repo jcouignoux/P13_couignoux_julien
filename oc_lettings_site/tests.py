@@ -13,7 +13,7 @@ class TestWebSiteUrls(TestCase):
     pytestmark = pytest.mark.django_db
 
     def test_index_url(self):
-        url = reverse('website:index')
+        url = reverse('oc-lettings-site:index')
         resolver = resolve(url)
         request = HttpRequest()
         response = resolver.func(request)
