@@ -1,15 +1,22 @@
 from .base import *
+import os
 import django_heroku
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 USE_TZ = False
 
 django_heroku.settings(locals())
 
+SENTRY_DSN = str(os.getenv('SENTRY_DSN'))
 
 sentry_sdk.init(
-    dsn="https://5366f49b7c2543c08e58281024ff472e@o1417074.ingest.sentry.io/4504003434250240",
+    # dsn="https://5366f49b7c2543c08e58281024ff472e@o1417074.ingest.sentry.io/4504003434250240",
+    dsn=SENTRY_DSN,
     integrations=[
         DjangoIntegration(),
     ],
