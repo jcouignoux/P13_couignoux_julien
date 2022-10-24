@@ -3,7 +3,8 @@ version: '3'
 services:
   web:
     image: jucgx/oc-lettings-site:latest
-    command: python manage.py runserver 0.0.0.0:8000 --settings=oc_lettings.settings.local
+    # command: python manage.py runserver 0.0.0.0:8000 --settings=oc_lettings.settings.local
+    entrypoint: /code/entrypoint.sh
     restart: always
     volumes:
       - .:/code
