@@ -23,7 +23,7 @@ class TestProfilesUrls(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertIn(b'<title>Profiles</title>', response.content)
 
-    def test_letting_url(self):
+    def test_profile_detail_url(self):
         client = Client()
         user = User.objects.create(username='username',)
         Profile.objects.create(user=user, favorite_city='Sannois')

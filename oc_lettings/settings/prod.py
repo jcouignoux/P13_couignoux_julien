@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
+''' For postgresql use on Heroku '''
 USE_TZ = False
 
 django_heroku.settings(locals())
@@ -15,7 +15,6 @@ django_heroku.settings(locals())
 SENTRY_DSN = str(os.getenv('SENTRY_DSN'))
 
 sentry_sdk.init(
-    # dsn="https://5366f49b7c2543c08e58281024ff472e@o1417074.ingest.sentry.io/4504003434250240",
     dsn=SENTRY_DSN,
     integrations=[
         DjangoIntegration(),

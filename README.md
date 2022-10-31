@@ -83,7 +83,7 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 ### Descriptif
 
 Lors d'un push, un pipeline CircleCI est déclenché.
-  - lancment d'un build validé parflake8 et pytest
+  - lancment d'un build validé par flake8 et pytest
 
   Uniquement pour la branche main:
   - build d'un contenaire déposé sur Docker Hub
@@ -93,20 +93,42 @@ Lors d'un push, un pipeline CircleCI est déclenché.
 
 Cliquer sur ce [lien](https://app.circleci.com/launchpad/invited?return-to=https%3A%2F%2Fapp.circleci.com%2Fpipelines%2Fgithub%2Fjcouignoux%2FP13_couignoux_julien%3Finvite%3Dtrue&inviter=b1b54806-d869-47c0-8a45-505361518a86&invitePage=pipelines) puis connecter vous à CircleCI (ou créer un compte si nécessaire)
 
+Pipeline CircleCi (décrit dans `.circleci/config.yml`):  
+ toutes branches:
+ - build_and_test: création de l'environnement puis lancement de pytest et flake8
+ - cont: build d'un contenaire puis dépôt sur DockerHub  
+
+uniquement branche main:
+ - deploy: déploiement de l'environnment sur Heroku
+
 ### Conteneurisation
 
 Aller sur Docker Hub [ici](https://hub.docker.com/repository/registry-1.docker.io/jucgx/oc-lettings-site/tags?page=1&ordering=last_updated).
 Vérifier que le conteneur a bien été déposé (le tag correspond au commit CircleCI) ainsi que le latest qui doit avoir un DIGEST identique.
 
 Tester le conteneur en local
-Lancer la commande docker-compose up.
-Connectez-vous sur le port [8090](http://localhost:8090/) pour tester.
+ - Lancer la commande docker-compose up. Celui-ci récupère l'image taguée `latest` puis lance l'application.
+ - Connectez-vous sur le port [8090](http://localhost:8090/).
 
 ### Déploiement Heroku
 
-Pour le premier déploiement, recharger la base avec la commande `python manage.py loaddata ./oc_lettings/dumps/db.json`  
+Lancement déploiement:
+ - Le déploiement se fait automatiquement en mettant à jour la branche main.
+ - Relancer le workflow d'une brach main depuis CircleCI
+
+
+> Attention ! Pour le premier déploiement, la base de donnée sera vide. Un backup de la base a été exportée dans /oc_lettings/dumps/db.json.  
+Il faut donc recharger la base avec la commande `python manage.py loaddata ./oc_lettings/dumps/db.json`.
+> - Depuis le dashbord Heroku de l'application - More - Run console
+> - Depuis le cli Heroku (installation [ici](https://devcenter.heroku.com/articles/heroku-cli))
+> 1. `heroku login`
+> 2. `heroku run --app <app_name> python manage.py loaddata ./oc_lettings/dumps/db.json`
+
+
 Se connecter sur Heroku [https://oc-lettings-site-jc.herokuapp.com/](https://oc-lettings-site-jc.herokuapp.com/)
 
 
+### Sentry
 
-
+Suivi sur [Sentry](https://sentry.io/organizations/cgx/projects/oc_letting_site/?project=4504003434250240).
+Seules les alertes en environnment de production sont remontées.

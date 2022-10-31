@@ -14,7 +14,7 @@ pytestmark = pytest.mark.django_db
 class TestLettingsUrls(TestCase):
     pytestmark = pytest.mark.django_db
 
-    def test_lettings_index_url(self):
+    def test_lettings_url(self):
         url = reverse('lettings:lettings_index')
         resolver = resolve(url)
         request = HttpRequest()
@@ -22,7 +22,7 @@ class TestLettingsUrls(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertIn(b'<title>Lettings</title>', response.content)
 
-    def test_letting_url(self):
+    def test_letting_detail_url(self):
         client = Client()
         address = Address.objects.create(number=21,
                                          street="JumpStreet",
